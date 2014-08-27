@@ -1,5 +1,5 @@
 ﻿<!DOCTYPE html>
-<html>
+<html ng-csp>
 <head>
     <meta charset="utf-8" />
     <title>ToDoMVC</title>
@@ -10,10 +10,15 @@
     <script src="//Microsoft.WinJS.2.0/js/ui.js"></script>
 
     <!-- ToDoMVC references -->
-    <link href="/css/default.css" rel="stylesheet" />
-    <script src="/js/default.js"></script>
+    <link href="/css/default.css" rel="stylesheet" />   
+
+    <script type="text/javascript" src="js/ext/require.js"></script>
+    <script type="text/javascript" src="js/main.js"></script>
 </head>
 <body>
-    <p>Content goes here</p>
+    <div ng-controller="ToDoController">
+        {{helloWorld}}
+    </div>
+
 </body>
 </html>
