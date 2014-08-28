@@ -8,17 +8,67 @@
     <link href="//Microsoft.WinJS.2.0/css/ui-dark.css" rel="stylesheet" />
     <script src="//Microsoft.WinJS.2.0/js/base.js"></script>
     <script src="//Microsoft.WinJS.2.0/js/ui.js"></script>
-
+    
     <!-- ToDoMVC references -->
     <link href="/css/default.css" rel="stylesheet" />   
 
     <script type="text/javascript" src="js/ext/require.js"></script>
     <script type="text/javascript" src="js/main.js"></script>
+    
 </head>
 <body>
-    <div ng-controller="ToDoController">
-        {{helloWorld}}
-    </div>
+    <section id="todoapp" class="main" ng-controller="ToDoController">
+        <header id="header">
+            <h1>todos</h1>
+	</header>
+		<section id="form">
+            <form id="todo-form" ng-submit="addTodo()">
+            <input id="toggle-all" type="checkbox" ng-model="allChecked" ng-click="markAll(allChecked)">
+			    <input id="new-todo" placeholder="What needs to be done?" ng-model="newTodo" autofocus>
+            </form>
+        </section>
+        <section id="main" ng-show="todos.length" ng-cloak>           
+            <label for="toggle-all">Mark all as complete</label>
+            <ul id="todo-list">
+                <li ng-repeat="todo in todos | filter:statusFilter track by $index" ng-class="{completed: todo.completed, editing: todo == editedTodo}">
+                    <div class="view">
+                        <input class="toggle" type="checkbox" ng-model="todo.completed">
+                        <label ng-dblclick="editTodo(todo)">{{todo.title}}</label>
+                        <button class="destroy" ng-click="removeTodo(todo)"></button>
+                    </div>
+                    <form ng-submit="doneEditing(todo)">
+                        <input class="edit" ng-trim="false" ng-model="todo.title" ng-blur="doneEditing(todo)">
+                    </form>
+                </li>
+            </ul>
+        </section>
+        <footer id="footer" ng-show="todos.length" ng-cloak>
+            <span id="todo-count">
+                
 
-</body>
+                <strong>{{remainingCount}}</strong>
+                <!--<ng-pluralize count="remainingCount" when="{ one: 'item left', other: 'items left' }"></ng-pluralize>-->
+            </span>
+            <!--<ul id="filters">
+                <li>
+                    <a ng-class="{selected: location.path() == '/'} " href="#/">All</a>
+                </li>
+                <li>
+                    <a ng-class="{selected: location.path() == '/active'}" href="#/active">Active</a>
+                </li>
+                <li>
+                    <a ng-class="{selected: location.path() == '/completed'}" href="#/completed">Completed</a>
+                </li>
+            </ul>-->
+            <button id="clear-completed" ng-click="clearDoneTodos()" ng-show="remainingCount < todos.length">Clear completed ({{todos.length - remainingCount}})</button>
+        </footer>
+
+        <win-app-bar>
+            <win-app-bar-command icon="'clear'" label="'All'" ng-click="select('All')"></win-app-bar-command>
+            <win-app-bar-command icon="'&#xE179;'" label="'Active'" ng-click="select('Active')"></win-app-bar-command>
+            <win-app-bar-command icon="'&#xE133;'" label="'Completed'" ng-click="select('Completed')"></win-app-bar-command>
+        </win-app-bar>
+    </section>
+	
+	</body>
 </html>
