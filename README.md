@@ -1,4 +1,4 @@
-TodoMVC_WinJS_Angular_Require
+TodoMVC - WinJS - Angular- Require
 =============================
 
-implementation like TodoMVC using WinJS, Angular and Require
+Sample application based on TodoMVC using WinJS, Angular and Require. Also uses the Angular-Winjs project.
