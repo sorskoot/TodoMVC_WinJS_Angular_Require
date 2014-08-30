@@ -16,19 +16,6 @@ define(['app', ,'angularwinjs', 'services/todoStorage'], function (app) {
                 todoStorage.put(todos);
             }, true);
 
-            //if ($location.path() === '') {
-            //    $location.path('/');
-            //}
-
-            //$scope.location = $location;
-
-            //$scope.$watch('location.path()', function (path) {
-            //    $scope.statusFilter = (path === '/active') ?
-			//		{ completed: false } : (path === '/completed') ?
-			//		{ completed: true } : null;
-            //});
-
-
             $scope.addTodo = function () {
                 var newTodo = $scope.newTodo.trim();
                 if (!newTodo.length) {
@@ -42,7 +29,6 @@ define(['app', ,'angularwinjs', 'services/todoStorage'], function (app) {
 
                 $scope.newTodo = '';
             };
-
 
             $scope.editTodo = function (todo) {
                 $scope.editedTodo = todo;
@@ -58,18 +44,15 @@ define(['app', ,'angularwinjs', 'services/todoStorage'], function (app) {
                 }
             };
 
-
             $scope.removeTodo = function (todo) {
                 todos.splice(todos.indexOf(todo), 1);
             };
-
 
             $scope.clearDoneTodos = function () {
                 $scope.todos = todos = todos.filter(function (val) {
                     return !val.completed;
                 });
             };
-
 
             $scope.markAll = function (done) {
                 todos.forEach(function (todo) {

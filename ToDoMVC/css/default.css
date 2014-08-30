@@ -1,12 +1,11 @@
 ﻿body {
+	background-color: #363636;
 }
-
-
 
 #todoapp {
 	display:-ms-grid;
 	-ms-grid-columns:50px 1fr 50px;
-	-ms-grid-rows:100px 75px 1fr 100px;	
+	-ms-grid-rows:100px 100px 1fr 20px;	
 	height:100%;
 }
 
@@ -16,37 +15,20 @@
 	font-weight: bold;
 	text-align: center;
 	color: #b3b3b3;
-	color: rgba(255, 255, 255, 0.3);
+	color: rgba(255, 255, 255, 0.6);
 	text-shadow: -1px -1px rgba(0, 0, 0, 0.2);
 	-ms-text-rendering: optimizeLegibility;
-	text-rendering: optimizeLegibility;
 }
 
 #header {
-	padding-top: 15px;
-	border-radius: inherit;
 	-ms-grid-column: 2;
-}
-
-#header:before {
-	content: '';
-	position: absolute;
-	top: 0;
-	right: 0;
-	left: 0;
-	height: 15px;
-	z-index: 2;
-	border-bottom: 1px solid #6c615c;
-	background-image:  linear-gradient(rgba(132, 110, 100, 0.8), rgba(101, 84, 76, 0.8));
-	border-top-left-radius: 1px;
-	border-top-right-radius: 1px;
 }
 
 #new-todo,
 .edit {
 	position: relative;
 	margin: 0;
-	width: 90%;
+	width: 100%;
 	font-size: 24px;
 	font-family: inherit;
 	line-height: 1.4em;
@@ -63,7 +45,7 @@
 #new-todo {
 	
 	border: none;
-	background: rgba(0, 0, 0, 0.02);
+	background: rgba(0, 0, 0, 0.2);
 	z-index: 2;
 	box-shadow: none;
 }
@@ -73,18 +55,15 @@
 	border-top: 1px dotted #adadad;
 	-ms-grid-column: 2;
 	-ms-grid-row: 3	;
-	overflow-y: scroll;
+	overflow-y: auto;
 }
 
-label[for='toggle-all'] {
-	display: none;
+label[for='toggle-all'] {	
 }
 
 #toggle-all {
-	width: 40px;
-	text-align: center;
-	line-height:34px;
-	display:inline;
+	width: 40px;	
+	margin-top:10px;
 }
 
 #toggle-all:before {
@@ -121,7 +100,7 @@ label[for='toggle-all'] {
 
 #todo-list li.editing .edit {
 	display: block;
-	width: 90%;
+	width: 100%;
 	margin: 0 0 0 43px;
 	background-color: black;
 }
@@ -133,13 +112,11 @@ label[for='toggle-all'] {
 #todo-list li .toggle {
 	text-align: center;
 	width: 40px;
-	/* auto, since non-WebKit browsers doesn't support input styling */
 	height: auto;
 	position: absolute;
 	top: 0;
 	bottom: 0;
 	margin: auto 0;
-	/* Mobile Safari */
 	border: none;
 
 }
@@ -290,7 +267,7 @@ label[for='toggle-all'] {
 	text-shadow: 0 1px 0 rgba(255, 255, 255, 0.7);
 	text-align: center;
 }
-
+ 
 #info a {
 	color: inherit;
 }
@@ -444,6 +421,11 @@ hr {
 #form {
 	-ms-grid-column: 2;
 	-ms-grid-row: 2;
+}
+
+button.win-command:focus, div.win-command:focus {
+	border-color: rgb(255, 255, 255);
+	transition: all 2.4s;
 }
 
 

@@ -9,12 +9,19 @@
     <script src="//Microsoft.WinJS.2.0/js/base.js"></script>
     <script src="//Microsoft.WinJS.2.0/js/ui.js"></script>
     
-    <!-- ToDoMVC references -->
     <link href="/css/default.css" rel="stylesheet" />   
+   
+    <!-- Fix for ng-cloak an ng-hide which is disabled by the ng-csp option -->
+    <style type="text/css">
+        @charset "UTF-8";
+
+       [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak,.ng-hide, .ng-hide:not(.ng-animate) {
+            display: none !important;
+        }
+    </style>
 
     <script type="text/javascript" src="js/ext/require.js"></script>
-    <script type="text/javascript" src="js/main.js"></script>
-    
+    <script type="text/javascript" src="js/main.js"></script>    
 </head>
 <body>
     <section id="todoapp" class="main" ng-controller="ToDoController">
@@ -23,12 +30,14 @@
 	</header>
 		<section id="form">
             <form id="todo-form" ng-submit="addTodo()">
-            <input id="toggle-all" type="checkbox" ng-model="allChecked" ng-click="markAll(allChecked)">
-			    <input id="new-todo" placeholder="What needs to be done?" ng-model="newTodo" autofocus>
+            	<input id="new-todo" placeholder="What needs to be done?" ng-model="newTodo" autofocus>
+            	<div>
+            		<input id="toggle-all" type="checkbox" ng-model="allChecked" ng-click="markAll(allChecked)">
+            		<label for="toggle-all">Mark all as complete</label>
+            	</div>
             </form>
         </section>
         <section id="main" ng-show="todos.length" ng-cloak>           
-            <label for="toggle-all">Mark all as complete</label>
             <ul id="todo-list">
                 <li ng-repeat="todo in todos | filter:statusFilter track by $index" ng-class="{completed: todo.completed, editing: todo == editedTodo}">
                     <div class="view">
@@ -41,32 +50,13 @@
                     </form>
                 </li>
             </ul>
-        </section>
-        <footer id="footer" ng-show="todos.length" ng-cloak>
-            <span id="todo-count">
-                
-
-                <strong>{{remainingCount}}</strong>
-                <!--<ng-pluralize count="remainingCount" when="{ one: 'item left', other: 'items left' }"></ng-pluralize>-->
-            </span>
-            <!--<ul id="filters">
-                <li>
-                    <a ng-class="{selected: location.path() == '/'} " href="#/">All</a>
-                </li>
-                <li>
-                    <a ng-class="{selected: location.path() == '/active'}" href="#/active">Active</a>
-                </li>
-                <li>
-                    <a ng-class="{selected: location.path() == '/completed'}" href="#/completed">Completed</a>
-                </li>
-            </ul>-->
-            <button id="clear-completed" ng-click="clearDoneTodos()" ng-show="remainingCount < todos.length">Clear completed ({{todos.length - remainingCount}})</button>
-        </footer>
-
+        </section>        
         <win-app-bar>
-            <win-app-bar-command icon="'clear'" label="'All'" ng-click="select('All')"></win-app-bar-command>
-            <win-app-bar-command icon="'&#xE179;'" label="'Active'" ng-click="select('Active')"></win-app-bar-command>
-            <win-app-bar-command icon="'&#xE133;'" label="'Completed'" ng-click="select('Completed')"></win-app-bar-command>
+            <win-app-bar-command ng-show="remainingCount < todos.length" section="'global'" icon="'clear'" label="'Clear completed'" ng-click="clearDoneTodos()"></win-app-bar-command>
+
+            <win-app-bar-command section="'selection'" icon="'clear'" label="'All'" ng-click="select('All')"></win-app-bar-command>
+            <win-app-bar-command section="'selection'" icon="'&#xE179;'" label="'Active'" ng-click="select('Active')"></win-app-bar-command>
+            <win-app-bar-command section="'selection'" icon="'&#xE133;'" label="'Completed'" ng-click="select('Completed')"></win-app-bar-command>
         </win-app-bar>
     </section>
 	
