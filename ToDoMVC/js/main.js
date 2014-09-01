@@ -30,6 +30,7 @@
         });
        
     }
+  
 
     WinJS.Application.start();
 })();

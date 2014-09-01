@@ -6,6 +6,18 @@ define(['app', ,'angularwinjs', 'services/todoStorage'], function (app) {
     function TodoController($scope, $location, todoStorage,filterFilter) {
             var todos = $scope.todos = todoStorage.get();
 
+            var SearchPane = Windows.ApplicationModel.Search.SearchPane.getForCurrentView();
+            SearchPane.onsuggestionsrequested = function (eventObject) {
+                var suggestionRequest = eventObject.request;
+                var query = eventObject.queryText.toLowerCase();
+                for (var i = 0; i < todos.length; i++) {
+                    if (todos[i].title.toLowerCase().indexOf(query) == 0) {
+                        suggestionRequest.searchSuggestionCollection.appendQuerySuggestion(todos[i].title);
+                    }
+                }
+
+            };
+
             $scope.newTodo = '';
             $scope.editedTodo = null;
 
