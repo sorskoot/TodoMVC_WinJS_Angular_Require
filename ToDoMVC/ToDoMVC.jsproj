@@ -68,6 +68,7 @@
     <Content Include="js\ext\angular.js" />
     <Content Include="js\ext\require.js" />
     <Content Include="js\main.js" />
+    <Content Include="js\services\shareTarget.js" />
     <Content Include="js\services\todoStorage.js" />
     <None Include="ToDoMVC_TemporaryKey.pfx" />
   </ItemGroup>

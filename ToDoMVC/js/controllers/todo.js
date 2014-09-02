@@ -3,9 +3,11 @@
 
 define(['app', ,'angularwinjs', 'services/todoStorage'], function (app) {
     return app.controller('ToDoController', ['$scope', '$location', 'todoStorage','filterFilter',
-    function TodoController($scope, $location, todoStorage,filterFilter) {
+
+        function TodoController($scope, $location, todoStorage, filterFilter) {
             var todos = $scope.todos = todoStorage.get();
 
+            //Add the search pane to the app
             var SearchPane = Windows.ApplicationModel.Search.SearchPane.getForCurrentView();
             SearchPane.onsuggestionsrequested = function (eventObject) {
                 var suggestionRequest = eventObject.request;
@@ -15,7 +17,6 @@ define(['app', ,'angularwinjs', 'services/todoStorage'], function (app) {
                         suggestionRequest.searchSuggestionCollection.appendQuerySuggestion(todos[i].title);
                     }
                 }
-
             };
 
             $scope.newTodo = '';
@@ -34,10 +35,7 @@ define(['app', ,'angularwinjs', 'services/todoStorage'], function (app) {
                     return;
                 }
 
-                todos.push({
-                    title: newTodo,
-                    completed: false
-                });
+                addTodo(newTodo);
 
                 $scope.newTodo = '';
             };
@@ -77,6 +75,18 @@ define(['app', ,'angularwinjs', 'services/todoStorage'], function (app) {
                     (state === 'Active') ? { completed: false } :
                     (state === 'Completed') ? { completed: true } : null;
             }
+
+            function addTodo(newTodo) {
+                todos.push({
+                    title: newTodo,
+                    completed: false
+                });
+            }
+
+            return {
+                addTodo:addTodo
+            }
         }
+        
     ]);
 });
